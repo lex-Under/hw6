@@ -6,8 +6,8 @@ import java.time.temporal.ChronoUnit;
 public class Author {
 
     public enum Gender {
-        male,
-        female
+        MALE,
+        FEMALE
     }
 
     private String name;
@@ -66,11 +66,11 @@ public class Author {
                         : 0);
         res = 31 * res
                 + ((birthDate != null)
-                        ? name.hashCode()
+                        ? birthDate.hashCode()
                         : 0);
         res = 31 * res
                 + ((deathDate != null)
-                        ? name.hashCode()
+                        ? deathDate.hashCode()
                         : 0);
         res = 31 * res
                 + ((gender != null)
@@ -83,8 +83,15 @@ public class Author {
     public boolean equals(Object o) {
         if (!(o instanceof Author)) {
             return false;
+        } else if (o == this) {
+            return true;
+        } else {
+            Author oAuthor = (Author) o;
+            return (birthDate == null) ? oAuthor.getBirthDate() == null : birthDate.equals(oAuthor.getBirthDate())
+                    && (deathDate == null) ? oAuthor.getDeathDate() == null : deathDate.equals(oAuthor.getDeathDate())
+                            && (name == null) ? oAuthor.getName() == null : name.equals(oAuthor.getName())
+                                    && (gender == null) ? oAuthor.getGender() == null : gender.equals(oAuthor.getGender());
         }
-        return o.hashCode() == this.hashCode();
     }
 
 }
